@@ -4,14 +4,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import dataStructure.Tree;
+import gui.MindMapEditor;
+import gui.MindMapEditorPane;
 import gui.TextArea;
 
 public class ApplyBtnMouseListener extends MouseAdapter{
 	TextArea textArea;
-	//TO DO : MindMap쪽에 그려야 하니 그거 받아와야함
+	MindMapEditorPane mindMapEditor;
 	
-	public ApplyBtnMouseListener(TextArea textArea){
+	public ApplyBtnMouseListener(TextArea textArea, MindMapEditorPane mindMapEditor){
 		this.textArea = textArea;
+		this.mindMapEditor = mindMapEditor;
 	}
 	
 	@Override
@@ -22,6 +25,8 @@ public class ApplyBtnMouseListener extends MouseAdapter{
 			JOptionPane.showMessageDialog(null, "잘못된 양식입니다.", "양식 오류", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
+		boolean isMakeRight= mindMapEditor.makeTree(parse);
+		if(isMakeRight)
+			mindMapEditor.draw();
 	}
-
 }

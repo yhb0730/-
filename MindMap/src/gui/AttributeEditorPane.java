@@ -16,20 +16,20 @@ public class AttributeEditorPane extends JPanel{
 		setLayout(null);
 		
 		title = new JButton("Attribute Pane");
-		Format.setComponent(new Point(0, 0), 235, 30, 20, title);
+		Constants.setComponent(new Point(0, 0), 235, 30, 20, title);
 		title.setEnabled(false);
 		add(title);
 		
 		attributeEditor = new AttributeEditor();
-		Format.setComponent(new Point(0, 30), 235, 350, attributeEditor);
+		Constants.setComponent(new Point(0, 30), 235, 480, attributeEditor);
 		add(attributeEditor);
 		
-		changeBtn = new JButton("º¯°æ");
+		changeBtn = new JButton("Change");
 		{
 			MouseAdapter listener = new ChangeBtnMouseListener(attributeEditor);
 			changeBtn.addMouseListener(listener);
 		}
-		Format.setComponent(new Point(0, 380), 235, 30, changeBtn);
+		Constants.setComponent(new Point(0, 515), 235, 30, changeBtn);
 		add(changeBtn);
 	}
 }

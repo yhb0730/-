@@ -16,7 +16,7 @@ public class AttributeEditor extends JScrollPane {
 		set = new AttributeSet[attributeName.length];
 		for(int i=0; i < attributeName.length; ++i) {
 			set[i] = new AttributeSet(i, 10, attributeName[i]);
-			Format.setComponent(new Point(5, i * 50), 200, 60, set[i]);
+			Constants.setComponent(new Point(5, i * 50), 200, 60, set[i]);
 			set[i].addListener(adapter[i]);
 			panel.add(set[i]);
 		}
