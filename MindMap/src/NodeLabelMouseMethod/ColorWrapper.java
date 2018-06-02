@@ -4,8 +4,8 @@ import gui.AttributeEditor;
 import gui.NodeLabel;
 
 public class ColorWrapper extends NodeMouseMethod{
-	public ColorWrapper(int num, NodeLabel nodeLabel, AttributeEditor attrEditor) {
-		super(num, nodeLabel, attrEditor);
+	public ColorWrapper(int num, AttributeEditor attrEditor) {
+		super(num, attrEditor);
 	}
 	
 	@Override

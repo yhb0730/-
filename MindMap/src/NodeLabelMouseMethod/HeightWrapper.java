@@ -4,8 +4,8 @@ import gui.AttributeEditor;
 import gui.NodeLabel;
 
 public class HeightWrapper extends NodeMouseMethod{
-	public HeightWrapper(int num, NodeLabel nodeLabel, AttributeEditor attrEditor) {
-		super(num, nodeLabel, attrEditor);
+	public HeightWrapper(int num, AttributeEditor attrEditor) {
+		super(num, attrEditor);
 	}
 
 	@Override

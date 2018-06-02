@@ -5,10 +5,11 @@ import java.awt.event.MouseAdapter;
 import javax.swing.*;
 
 public class AttributeEditor extends JScrollPane {
-	private String[] attributeName = new String[] {"TEXT", "X", "W", "H", "Color"};
-	private MouseAdapter[] adapter = new MouseAdapter[] {null, null, null, null, null};
+	private String[] attributeName = new String[] {"TEXT", "X", "Y", "W", "H", "Color"};
+	private MouseAdapter[] adapter = new MouseAdapter[] {null, null, null, null, null, null};
 	private JPanel panel;
 	private AttributeSet[] set;
+	private NodeLabel nodeLabel;
 	
 	AttributeEditor(){
 		panel = new JPanel();
@@ -21,6 +22,26 @@ public class AttributeEditor extends JScrollPane {
 			panel.add(set[i]);
 		}
 		this.getViewport().add(panel);
+	}
+	
+	public int getLength() {
+		return attributeName.length;
+	}
+	
+	public String getText(int num) {
+		return set[num].getText();
+	}
+	
+	public void setText(int num, String str) {
+		set[num].setText(str);
+	}
+	
+	public NodeLabel getNodeLabel() {
+		return nodeLabel;
+	}
+	
+	public void setNodeLabel(NodeLabel nodeLabel) {
+		this.nodeLabel = nodeLabel;
 	}
 	
 	class AttributeSet extends JPanel{

@@ -5,8 +5,8 @@ import javax.swing.*;
 
 public class Frame extends JFrame{
 	private TextEditorPane textEditor;
-	private MindMapEditorPane MindMapEditor;
-	private AttributeEditorPane AttributeEditor;
+	private MindMapEditorPane mindMapEditor;
+	private AttributeEditorPane attributeEditor;
 	private JSplitPane leftSplit;
 	private JSplitPane rightSplit;
 	
@@ -16,16 +16,17 @@ public class Frame extends JFrame{
 		Container container = getContentPane();
 		container.setLayout(null);
 		
-		MindMapEditor = new MindMapEditorPane();
-		AttributeEditor = new AttributeEditorPane();
-		MindMapEditor.setMinimumSize(new Dimension(200, 100));
-		AttributeEditor.setMinimumSize(new Dimension(100, 100));
-		rightSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, MindMapEditor, AttributeEditor);
+		attributeEditor = new AttributeEditorPane();
+		mindMapEditor = new MindMapEditorPane(attributeEditor.getAttributeEditor());
+		attributeEditor.addMouseListener(mindMapEditor.getMindMapEditor());
+		mindMapEditor.setMinimumSize(new Dimension(200, 100));
+		attributeEditor.setMinimumSize(new Dimension(100, 100));
+		rightSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mindMapEditor, attributeEditor);
 		Constants.setComponent(new Point(250, 100), 900, 550, rightSplit);
 		rightSplit.getLeftComponent().setPreferredSize(new Dimension(650, 500));
 		add(rightSplit);
 		
-		textEditor = new TextEditorPane(MindMapEditor);
+		textEditor = new TextEditorPane(mindMapEditor);
 		leftSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, textEditor, null);
 		Constants.setComponent(new Point(0, 100), 250,  550, leftSplit);
 		add(leftSplit);

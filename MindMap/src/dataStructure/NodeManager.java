@@ -20,6 +20,7 @@ public class NodeManager {
 		if(parse[0].charAt(0) == '\t')
 			return null;
 		head = new Node(index++, parse[0].replaceAll("[\\r]", ""), 0);
+		System.gc();
 		stack.push(head);
 		
 		for(int i=1; i < parse.length; ++i) {

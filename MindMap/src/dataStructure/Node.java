@@ -11,7 +11,7 @@ public class Node {
 	private int index;
 	private int maxIndex; //minIndex는 자기 자신이다(깊이 기반 탐색이므로)
 	private int level;
-	private String name;
+	private String string;
 	private Node parent;
 	private Vector<Node> child = new Vector<Node>();
 
@@ -19,10 +19,10 @@ public class Node {
 		this(-1, "dummy", -1);
 	}
 	
-	public Node(int index, String name, int level){
+	public Node(int index, String string, int level){
 		this.index = index;
 		this.maxIndex = index;
-		this.name = name;
+		this.string = string;
 		this.level = level;
 	}
 	
@@ -40,7 +40,8 @@ public class Node {
 	
 	public void setMaxIndex(int maxIndex) {
 		this.maxIndex = Math.max(this.maxIndex, maxIndex);
-		this.parent.setMaxIndex(this.maxIndex);
+		if(this.parent != null)
+			this.parent.setMaxIndex(this.maxIndex);
 	}
 
 	public void addChild(Node child) {
@@ -60,12 +61,12 @@ public class Node {
 		this.level = level;
 	}
 
-	public String getName() {
-		return name;
+	public String getString() {
+		return string;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setString(String string) {
+		this.string = string;
 	}
 
 	public Node getParent() {

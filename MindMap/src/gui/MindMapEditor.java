@@ -1,29 +1,32 @@
 package gui;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.util.Vector;
 import java.util.LinkedList;
 import java.util.Queue;
 import javax.swing.*;
 import dataStructure.Node;
-import dataStructure.Tree;
+import dataStructure.NodeManager;
+import guiListener.MouseListener.NodeLabelMouseListener;
 
 public class MindMapEditor extends JScrollPane {
+	private AttributeEditor attrEditor;
 	private JPanel panel;
-	private Node head;  //문제가 생김 => 클릭하면 바로 그 객체를 알아야 하는데 이런식으로 루트 구조면 탐색을 해야한다. 심지어 이건 이진트리도 아닌데 ㅅㅂ 부모 노드로 찾을 수 있는 방법이 뭘까?
-	private Vector<NodeLabel> nodeArr; //여기다가 저장해야돌것 같다.
+	private Vector<NodeLabel> nodeArr = new Vector<NodeLabel>();
 	
-	MindMapEditor(){
+	MindMapEditor(AttributeEditor attrEditor){
+		this.attrEditor = attrEditor;
 		panel = new JPanel();
 		panel.setLayout(null);
 		this.getViewport().add(panel);
 	}
 	
 	boolean makeTree(String[] parse) {
-		nodeArr.clear();
-		head = Tree.makeTree(parse);
-		System.gc();
-		if(head == null) {
+		if(!nodeArr.isEmpty())
+			nodeArr.removeAllElements();
+		
+		if(NodeManager.makeTree(parse) == null) {
 			JOptionPane.showMessageDialog(null, "마인드 맵이 제대로 생성되지 않았습니다.", "프로그램 오류", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
@@ -33,25 +36,44 @@ public class MindMapEditor extends JScrollPane {
 	//이렇게 그냥 넣으면 노드간에 누가 자식이고 부모인지 구분이 안된다. 걍 만들면서 넣고 그려야한다.
 	NodeLabel makeNodeLabel(Node node) {
 		NodeLabel nodeLabel = new NodeLabel(node);
+		attrEditor.setNodeLabel(nodeLabel); //여기를 안 해서 고생함. 중요(6/2) 이걸 먼저 안해줘서 NodeLabelMouseMethod에서 nodeLabel이  null이 되서 들어감. 기존 코드는 nodeLabel을 넘겨줬기 때문에 이걸 하는걸 까먹음
+		MouseAdapter listener = new NodeLabelMouseListener(nodeLabel, attrEditor);
+		nodeLabel.addMouseListener(listener);
 		nodeArr.add(nodeLabel);
 		return nodeLabel;
 	}
 	
-	void drawAll() {
-		if(head == null) {
+	public void drawAll() {
+		if(NodeManager.getHead() == null) {
 			//실행되면 안되는 부분. 혹시 모를 실수를 위해 처리
 			JOptionPane.showMessageDialog(null, "head Node가 null입니다.", "실행되서는 안되는 오류", JOptionPane.ERROR_MESSAGE);
 		}
 		else {
 			removeAll();
-			//TODO : 진짜로 그리는게 들어가야할 부분. 이거 메소드 이름을 바꿔야할듯? draw를 따로 만들자 
-			draw(head, new Point(this.getWidth()/2, this.getHeight()/2));
+			draw(NodeManager.getHead(), new Point(300, 300));
 			updateUI();
 		}
 	}
 	
+	public void repaintUI() {
+		removeAll();
+		for(int i=0; i < nodeArr.size(); ++i) {
+			add(nodeArr.get(i));
+		}
+		updateUI();
+	}
+	
 	void draw(Node node, Point location) {
-		/*LinkedList<Node> queue = new LinkedList<Node>();
+		NodeLabel nodeLabel = makeNodeLabel(node);
+		Constants.setComponent(new Point(location), Constants.NODE_X_SIZE, Constants.NODE_Y_SIZE, nodeLabel);
+		add(nodeLabel);
+		if(nodeLabel.getNode().getChild(0) != null)
+		{
+			NodeLabel childNode = makeNodeLabel(nodeLabel.getNode().getChild(0));
+			Constants.setComponent(new Point(100, 100), Constants.NODE_X_SIZE, Constants.NODE_Y_SIZE, childNode);
+			add(childNode);
+		}
+		/*Queue<Node> queue = new LinkedList<Node>();
 		queue.add(node);
 		while(!queue.isEmpty()) {
 			Node cur = queue.peek(); queue.remove();
@@ -64,26 +86,5 @@ public class MindMapEditor extends JScrollPane {
 				add(nodeLabel);
 			}
 		}*/
-	}
-	
-	Node getHead(){
-		return head;
-	}
-	
-	class NodeLabel extends JLabel{
-		private Point nodeSize;
-		private Node node;
-		
-		NodeLabel(Node node){
-			this.node = node;
-		}
-				
-		Point getNodeSize() {
-			return nodeSize;
-		}
-		
-		void setNodeSize(Point nodeSize) {
-			this.nodeSize = nodeSize;
-		}
 	}
 }

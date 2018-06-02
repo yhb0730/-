@@ -25,11 +25,20 @@ public class AttributeEditorPane extends JPanel{
 		add(attributeEditor);
 		
 		changeBtn = new JButton("Change");
-		{
-			MouseAdapter listener = new ChangeBtnMouseListener(attributeEditor);
-			changeBtn.addMouseListener(listener);
-		}
 		Constants.setComponent(new Point(0, 515), 235, 30, changeBtn);
 		add(changeBtn);
+	}
+	
+	public void addMouseListener(MindMapEditor mindMapEditor) {
+		MouseAdapter listener = new ChangeBtnMouseListener(attributeEditor, mindMapEditor);
+		changeBtn.addMouseListener(listener);
+	}
+	
+	public AttributeEditor getAttributeEditor() {
+		return this.attributeEditor;
+	}
+	
+	public JButton getChangeBtn() {
+		return this.changeBtn;
 	}
 }

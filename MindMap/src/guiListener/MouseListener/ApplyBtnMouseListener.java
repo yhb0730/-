@@ -3,7 +3,7 @@ package guiListener.MouseListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
-import dataStructure.Tree;
+import dataStructure.NodeManager;
 import gui.MindMapEditor;
 import gui.MindMapEditorPane;
 import gui.TextArea;
@@ -25,8 +25,11 @@ public class ApplyBtnMouseListener extends MouseAdapter{
 			JOptionPane.showMessageDialog(null, "잘못된 양식입니다.", "양식 오류", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		boolean isMakeRight= mindMapEditor.makeTree(parse);
-		if(isMakeRight)
+		if(mindMapEditor.makeTree(parse)) {
+			System.out.println("debug : 제대로 생성됨");
 			mindMapEditor.draw();
+		}
+		else
+			System.out.println("debug : 제대로 생성되지 않음");
 	}
 }

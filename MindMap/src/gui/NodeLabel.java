@@ -6,25 +6,44 @@ import javax.swing.JLabel;
 import dataStructure.Node;
 
 public class NodeLabel extends JLabel{
-		private Point nodeSize;
+		//private int width;
+		//private int height;
 		private Node node;
 		
 		public NodeLabel(Node node){
 			this.node = node;
 			this.setText(node.getString());
 			this.setOpaque(true);
-			this.setBackground(Color.BLUE);
+			this.setBackground(Color.lightGray);
 		}
-				
-		public Point getNodeSize() {
-			return nodeSize;
-		}
+
+		/*@Override
+		public void setSize(int x, int y) {
+			this.width = x;
+			this.height = y;
+			super.setSize(width, height);
+		}*/
 		
-		public void setNodeSize(Point nodeSize) {
-			this.nodeSize = nodeSize;
-			this.setSize(nodeSize.x, nodeSize.y);
+		public int getWidth() {
+			return this.getSize().width;
 		}
-		
+
+
+		public void setWidth(int width) {
+			setSize(width, getHeight());
+		}
+
+
+		public int getHeight() {
+			return this.getSize().height;
+		}
+
+
+		public void setHeight(int height) {
+			setSize(getWidth(), height);
+		}
+
+
 		public Node getNode() {
 			return node;
 		}

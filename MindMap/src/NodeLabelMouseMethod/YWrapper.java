@@ -5,8 +5,8 @@ import gui.NodeLabel;
 
 public class YWrapper extends NodeMouseMethod{
 
-	public YWrapper(int num, NodeLabel nodeLabel, AttributeEditor attrEditor) {
-		super(num, nodeLabel, attrEditor);
+	public YWrapper(int num, AttributeEditor attrEditor) {
+		super(num, attrEditor);
 		// TODO Auto-generated constructor stub
 	}
 

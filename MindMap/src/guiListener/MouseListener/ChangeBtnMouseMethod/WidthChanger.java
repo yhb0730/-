@@ -15,9 +15,8 @@ public class WidthChanger extends ChangeBtnMethod{
 	@Override
 	public void change() {
 		// TODO Auto-generated method stub
-		int x = Integer.parseInt(getAttrEditor().getText(getNum()));
-		int y = getNodeLabel().getLocation().y;
-		getNodeLabel().setNodeSize(new Point(x, y));
+		int width = Integer.parseInt(getAttrEditor().getText(getNum()));
+		getNodeLabel().setWidth(width);
 	}
 
 }

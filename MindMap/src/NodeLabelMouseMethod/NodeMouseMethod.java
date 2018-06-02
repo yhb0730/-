@@ -8,9 +8,9 @@ abstract public class NodeMouseMethod {
 	private NodeLabel nodeLabel;
 	private AttributeEditor attrEditor;
 	
-	public NodeMouseMethod(int num, NodeLabel nodeLabel, AttributeEditor attrEditor) {
+	public NodeMouseMethod(int num, AttributeEditor attrEditor) {
 		this.num = num;
-		this.nodeLabel = nodeLabel;
+		this.nodeLabel = attrEditor.getNodeLabel();
 		this.attrEditor = attrEditor;
 	}
 	

@@ -5,12 +5,12 @@ import gui.NodeLabel;
 
 abstract public class ChangeBtnMethod {
 	private int num;
-	private NodeLabel nodeLabel;
+	//private NodeLabel nodeLabel;
 	private AttributeEditor attrEditor;
 	
 	public ChangeBtnMethod(int num, AttributeEditor attrEditor) {
 		this.num = num;
-		this.nodeLabel = attrEditor.getNodeLabel();
+		//this.nodeLabel = attrEditor.getNodeLabel();
 		this.attrEditor = attrEditor;
 	}
 	
@@ -25,11 +25,11 @@ abstract public class ChangeBtnMethod {
 	abstract public void change();
 
 	public NodeLabel getNodeLabel() {
-		return nodeLabel;
+		return this.attrEditor.getNodeLabel();
 	}
 
 	public void setNodeLabel(NodeLabel nodeLabel) {
-		this.nodeLabel = nodeLabel;
+		this.attrEditor.setNodeLabel(nodeLabel);;
 	}
 
 	public AttributeEditor getAttrEditor() {
