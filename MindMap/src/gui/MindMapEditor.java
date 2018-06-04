@@ -19,13 +19,15 @@ public class MindMapEditor extends JScrollPane {
 		this.attrEditor = attrEditor;
 		panel = new JPanel();
 		panel.setLayout(null);
+		this.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		this.getViewport().add(panel);
 	}
 	
 	boolean makeTree(String[] parse) {
 		if(!nodeArr.isEmpty())
 			nodeArr.removeAllElements();
-		
+
 		if(NodeManager.makeTree(parse) == null) {
 			JOptionPane.showMessageDialog(null, "마인드 맵이 제대로 생성되지 않았습니다.", "프로그램 오류", JOptionPane.ERROR_MESSAGE);
 			return false;
@@ -70,9 +72,10 @@ public class MindMapEditor extends JScrollPane {
 		if(nodeLabel.getNode().getChild(0) != null)
 		{
 			NodeLabel childNode = makeNodeLabel(nodeLabel.getNode().getChild(0));
-			Constants.setComponent(new Point(100, 100), Constants.NODE_X_SIZE, Constants.NODE_Y_SIZE, childNode);
+			Constants.setComponent(new Point(-300, 100), Constants.NODE_X_SIZE, Constants.NODE_Y_SIZE, childNode);
 			add(childNode);
 		}
+
 		/*Queue<Node> queue = new LinkedList<Node>();
 		queue.add(node);
 		while(!queue.isEmpty()) {

@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Point;
 import javax.swing.JLabel;
 import dataStructure.Node;
@@ -41,6 +42,7 @@ public class NodeLabel extends JLabel{
 
 		public void setHeight(int height) {
 			setSize(getWidth(), height);
+			//setPreferredSize(new Dimension(getWidth(), height));
 		}
 
 

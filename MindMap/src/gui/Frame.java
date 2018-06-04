@@ -15,7 +15,6 @@ public class Frame extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		Container container = getContentPane();
 		container.setLayout(null);
-		
 		attributeEditor = new AttributeEditorPane();
 		mindMapEditor = new MindMapEditorPane(attributeEditor.getAttributeEditor());
 		attributeEditor.addMouseListener(mindMapEditor.getMindMapEditor());

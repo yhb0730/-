@@ -15,12 +15,13 @@ public class Constants {
 	static public final int HEIGHT_ATTRIBUTE = 4;
 	static public final int COLOR_ATTRIBUTE = 5;
 	
-	static void setComponent(Point point, int sizeX, int sizeY, JComponent component) {
+	public static void setComponent(Point point, int sizeX, int sizeY, JComponent component) {
 		setComponent(point, sizeX, sizeY, 10, component);
 	}
 	
-	static void setComponent(Point point, int sizeX, int sizeY, int fontSize, JComponent component) {
+	public static void setComponent(Point point, int sizeX, int sizeY, int fontSize, JComponent component) {
 		component.setLocation(point);
+		//component.setPreferredSize(new Dimension(sizeX, sizeY));
 		component.setSize(sizeX, sizeY);
 		component.setFont(new Font("Arial", Font.PLAIN, fontSize));
 	}
