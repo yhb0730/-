@@ -19,9 +19,10 @@ public class MindMapEditor extends JScrollPane {
 		this.attrEditor = attrEditor;
 		panel = new JPanel();
 		panel.setLayout(null);
+		
 		this.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		this.getViewport().add(panel);
+		this.getViewport().add(panel, null);
 	}
 	
 	boolean makeTree(String[] parse) {
@@ -39,11 +40,12 @@ public class MindMapEditor extends JScrollPane {
 	//이렇게 그냥 넣으면 노드간에 누가 자식이고 부모인지 구분이 안된다. 걍 만들면서 넣고 그려야한다.
 	NodeLabel makeNodeLabel(Node node) {
 		NodeLabel nodeLabel = new NodeLabel(node);
-		attrEditor.setNodeLabel(nodeLabel); //여기를 안 해서 고생함. 중요(6/2) 이걸 먼저 안해줘서 NodeLabelMouseMethod에서 nodeLabel이  null이 되서 들어감. 기존 코드는 nodeLabel을 넘겨줬기 때문에 이걸 하는걸 까먹음
-		MouseAdapter listener = new NodeLabelMouseListener(nodeLabel, attrEditor);
+		attrEditor.setNodeLabel(nodeLabel); //여기를 안 해서 고생함. 중요(6월2일) 이걸 먼저 안해줘서 NodeLabelMouseMethod에서 nodeLabel이  null이 되서 들어감. 기존 코드는 nodeLabel을 넘겨줬기 때문에 이걸 하는걸 까먹음
+		MouseAdapter listener = new NodeLabelMouseListener(attrEditor);
 		nodeLabel.addMouseListener(listener);
 		nodeLabel.addMouseMotionListener(listener); //motionListener와 mouseListener는 별개. Dragged는 motionListener이다.
 		nodeArr.add(nodeLabel);
+		attrEditor.setNodeLabel(null); //아무것도 선택되지 않은 채 change 버튼 눌리면 작동 안하도록 하기 위해 만든 코드. NodeLabelMouseListener의 잘못된 구조 때문에 들어간거지만 이보다 간단하게 해결할 수 있는 방법은 존재하지 않는다.
 		return nodeLabel;
 	}
 	

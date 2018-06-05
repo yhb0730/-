@@ -52,8 +52,8 @@ public class NodeManager {
 				return null;
 			}
 		}
-		/****디버깅때만 사용할 함수*******/
-		debugtravel(head);
+		/****디버그 때만 사용할 함수*******/
+		//debugtravel(head);
 		/*************************/
 		return head;
 	}

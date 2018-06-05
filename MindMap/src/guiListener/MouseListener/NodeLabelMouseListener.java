@@ -1,17 +1,11 @@
 package guiListener.MouseListener;
 
-import java.awt.Color;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.JOptionPane;
-
-import NodeLabelMouseMethod.*;
-import gui.AttributeEditor;
-import gui.Constants;
-import gui.NodeLabel;
+import javax.swing.*;
+import gui.*;
+import guiListener.MouseListener.NodeLabelMouseMethod.*;
 
 public class NodeLabelMouseListener extends MouseAdapter{
 	private static NodeLabel prevLabel;
@@ -21,8 +15,7 @@ public class NodeLabelMouseListener extends MouseAdapter{
 	private boolean isClicked = false;
 	private boolean isDragged = false;
 	
-	public NodeLabelMouseListener(NodeLabel nodeLabel, AttributeEditor attrEditor){
-		//this.nodeLabel = nodeLabel; //e.getSoure로 대체
+	public NodeLabelMouseListener(AttributeEditor attrEditor){
 		this.attrEditor = attrEditor;
 		method = new NodeMouseMethod[] {
 				 new TextWrapper(Constants.TEXT_ATTRIBUTE, attrEditor),
@@ -127,7 +120,7 @@ public class NodeLabelMouseListener extends MouseAdapter{
 			changeLocation(e);
 			mouseClicked(e);
 		}
-		else
+		else //TODO 미래에 다른 동작이 추가 될 수 있도록 남겨둔 부분
 			;
 	}
 	
