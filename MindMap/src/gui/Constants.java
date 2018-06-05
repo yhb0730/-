@@ -15,6 +15,10 @@ public class Constants {
 	static public final int HEIGHT_ATTRIBUTE = 4;
 	static public final int COLOR_ATTRIBUTE = 5;
 	
+	//650 548
+	static public final int MINDMAP_X_SIZE = 650;
+	static public final int MINDMAP_Y_SIZE = 548;
+	
 	public static void setComponent(Point point, int sizeX, int sizeY, JComponent component) {
 		setComponent(point, sizeX, sizeY, 10, component);
 	}

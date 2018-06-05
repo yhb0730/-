@@ -15,6 +15,7 @@ public class Frame extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		Container container = getContentPane();
 		container.setLayout(null);
+		
 		attributeEditor = new AttributeEditorPane();
 		mindMapEditor = new MindMapEditorPane(attributeEditor.getAttributeEditor());
 		attributeEditor.addMouseListener(mindMapEditor.getMindMapEditor());
@@ -23,10 +24,12 @@ public class Frame extends JFrame{
 		rightSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mindMapEditor, attributeEditor);
 		Constants.setComponent(new Point(250, 100), 900, 550, rightSplit);
 		rightSplit.getLeftComponent().setPreferredSize(new Dimension(650, 500));
+		rightSplit.setEnabled(false);
 		add(rightSplit);
 		
 		textEditor = new TextEditorPane(mindMapEditor);
 		leftSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, textEditor, null);
+		leftSplit.setEnabled(false);
 		Constants.setComponent(new Point(0, 100), 250,  550, leftSplit);
 		add(leftSplit);
 		

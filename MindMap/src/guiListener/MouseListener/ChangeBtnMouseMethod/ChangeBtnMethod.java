@@ -22,7 +22,7 @@ abstract public class ChangeBtnMethod {
 		this.num = num;
 	}
 
-	abstract public void change();
+	abstract public void change() throws NumberFormatException;
 
 	public NodeLabel getNodeLabel() {
 		return this.attrEditor.getNodeLabel();

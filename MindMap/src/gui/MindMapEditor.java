@@ -25,9 +25,10 @@ public class MindMapEditor extends JScrollPane {
 	}
 	
 	boolean makeTree(String[] parse) {
-		if(!nodeArr.isEmpty())
+		if(!nodeArr.isEmpty()) {
+			removeAllLabel();
 			nodeArr.removeAllElements();
-
+		}
 		if(NodeManager.makeTree(parse) == null) {
 			JOptionPane.showMessageDialog(null, "마인드 맵이 제대로 생성되지 않았습니다.", "프로그램 오류", JOptionPane.ERROR_MESSAGE);
 			return false;
@@ -41,8 +42,15 @@ public class MindMapEditor extends JScrollPane {
 		attrEditor.setNodeLabel(nodeLabel); //여기를 안 해서 고생함. 중요(6/2) 이걸 먼저 안해줘서 NodeLabelMouseMethod에서 nodeLabel이  null이 되서 들어감. 기존 코드는 nodeLabel을 넘겨줬기 때문에 이걸 하는걸 까먹음
 		MouseAdapter listener = new NodeLabelMouseListener(nodeLabel, attrEditor);
 		nodeLabel.addMouseListener(listener);
+		nodeLabel.addMouseMotionListener(listener); //motionListener와 mouseListener는 별개. Dragged는 motionListener이다.
 		nodeArr.add(nodeLabel);
 		return nodeLabel;
+	}
+	
+	private void removeAllLabel() {
+		for(int i=0; i < nodeArr.size(); ++i) {
+			panel.remove(nodeArr.get(i));
+		}
 	}
 	
 	public void drawAll() {
@@ -51,29 +59,34 @@ public class MindMapEditor extends JScrollPane {
 			JOptionPane.showMessageDialog(null, "head Node가 null입니다.", "실행되서는 안되는 오류", JOptionPane.ERROR_MESSAGE);
 		}
 		else {
-			removeAll();
 			draw(NodeManager.getHead(), new Point(300, 300));
-			updateUI();
+			getParent().revalidate();
+			getParent().repaint();
+			panel.revalidate();
+			panel.repaint();
 		}
 	}
 	
 	public void repaintUI() {
-		removeAll();
+		removeAllLabel();
 		for(int i=0; i < nodeArr.size(); ++i) {
-			add(nodeArr.get(i));
+			panel.add(nodeArr.get(i));
 		}
-		updateUI();
+		getParent().revalidate();
+		getParent().repaint();
+		panel.revalidate();
+		panel.repaint();
 	}
 	
 	void draw(Node node, Point location) {
 		NodeLabel nodeLabel = makeNodeLabel(node);
 		Constants.setComponent(new Point(location), Constants.NODE_X_SIZE, Constants.NODE_Y_SIZE, nodeLabel);
-		add(nodeLabel);
+		panel.add(nodeLabel);
 		if(nodeLabel.getNode().getChild(0) != null)
 		{
 			NodeLabel childNode = makeNodeLabel(nodeLabel.getNode().getChild(0));
-			Constants.setComponent(new Point(-300, 100), Constants.NODE_X_SIZE, Constants.NODE_Y_SIZE, childNode);
-			add(childNode);
+			Constants.setComponent(new Point(300, 100), Constants.NODE_X_SIZE, Constants.NODE_Y_SIZE, childNode);
+			panel.add(childNode);
 		}
 
 		/*Queue<Node> queue = new LinkedList<Node>();

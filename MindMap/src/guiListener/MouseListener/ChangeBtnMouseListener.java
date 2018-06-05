@@ -3,6 +3,8 @@ package guiListener.MouseListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JOptionPane;
+
 import gui.*;
 import guiListener.MouseListener.ChangeBtnMouseMethod.*;
 
@@ -26,8 +28,16 @@ public class ChangeBtnMouseListener extends MouseAdapter{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		if(e.getButton() != MouseEvent.BUTTON1)
+			return ;
+		
 		for(int i=0; i < method.length; ++i) {
-			method[i].change();
+			try {
+				method[i].change();
+			}
+			catch(NumberFormatException exception) {
+				JOptionPane.showMessageDialog(null, "좌표와 크기에는 숫자만 들어가야합니다", "양식 오류", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		mindMapEditor.repaintUI();
 	}
