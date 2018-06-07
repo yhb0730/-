@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.Vector;
 
 import gui.Constants;
+import gui.NodeLabel;
 
 public class Node {
 	//Node를 구별할 수 있는 PK가 필요 => 만드는 방식이 깊이 우선 탐색 방식이니까 만들면서 점수 번호 부여한 뒤 해당 노드의 자식의 범위를 저장하는 방식이 가장 현실적일듯? (B*tree 마냥)
@@ -14,7 +15,10 @@ public class Node {
 	private String string;
 	private Node parent;
 	private Vector<Node> child = new Vector<Node>();
-
+	//최악의 결정이지만 여기에 NodeLabel을 넣는 수밖에 없다.
+	NodeLabel myNodeLabel;
+	NodeLabel parentLabel;
+	
 	public Node(){
 		this(-1, "dummy", -1);
 	}
@@ -80,4 +84,22 @@ public class Node {
 	public int getSize() {
 		return child.size();
 	}
+	
+	public NodeLabel getMyNodeLabel() {
+		return myNodeLabel;
+	}
+
+	public void setMyNodeLabel(NodeLabel myNodeLabel) {
+		this.myNodeLabel = myNodeLabel;
+	}
+
+	
+	public NodeLabel getParentLabel() {
+		return parentLabel;
+	}
+
+	public void setParentLabel(NodeLabel parentLabel) {
+		this.parentLabel = parentLabel;
+	}
+
 }

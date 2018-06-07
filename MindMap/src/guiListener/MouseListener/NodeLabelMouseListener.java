@@ -11,6 +11,7 @@ public class NodeLabelMouseListener extends MouseAdapter{
 	private static NodeLabel prevLabel;
 	private AttributeEditor attrEditor;
 	private NodeMouseMethod[] method;
+	private Point pressedPoint;
 	private boolean isBorder = false;
 	private boolean isClicked = false;
 	private boolean isDragged = false;
@@ -33,7 +34,6 @@ public class NodeLabelMouseListener extends MouseAdapter{
 			return ;
 			
 		isClicked = true;
-		
 		
 		NodeLabel nodeLabel = (NodeLabel)e.getSource();
 		if(prevLabel != null && prevLabel != nodeLabel)
@@ -77,7 +77,6 @@ public class NodeLabelMouseListener extends MouseAdapter{
 			return;
 		}
 		attrEditor.setNodeLabel(nodeLabel);
-		//attrEditor.setNodeLabel(nodeLabel);
 		for(int i=0; i < method.length; ++i) {
 			method[i].write();
 		}
@@ -102,6 +101,13 @@ public class NodeLabelMouseListener extends MouseAdapter{
 			return ;
 		
 		isBorder = false;
+		NodeLabel nodeLabel = (NodeLabel)(e.getSource());
+		Point point = new Point(e.getX() + nodeLabel.getX(),e.getY() + nodeLabel.getY());
+		pressedPoint = point;
+		
+		if(nodeLabel.isConnectionPoint(point))
+			isBorder = true;
+		
 		isClicked = false;
 		isDragged = false;
 	}
@@ -116,12 +122,17 @@ public class NodeLabelMouseListener extends MouseAdapter{
 		if(e.getButton() != MouseEvent.BUTTON1)
 			return ;
 		
+		NodeLabel nodeLabel = (NodeLabel)e.getSource();
+		Point releasedPoint = new Point(e.getX() + nodeLabel.getX() , e.getY() + nodeLabel.getY()); 
+		
 		if(isDragged && !isBorder && !isClicked) {
 			changeLocation(e);
 			mouseClicked(e);
 		}
-		else //TODO 미래에 다른 동작이 추가 될 수 있도록 남겨둔 부분
-			;
+		else if(isDragged && isBorder && !isClicked) {
+			nodeLabel.manipulateBorder(pressedPoint, releasedPoint);
+			mouseClicked(e);
+		}
 	}
 	
 	void changeLocation(MouseEvent e) {

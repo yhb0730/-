@@ -14,5 +14,6 @@ public class ColorWrapper extends NodeMouseMethod{
 		String green = Integer.toString(getNodeLabel().getBackground().getGreen());
 		String blue = Integer.toString(getNodeLabel().getBackground().getBlue());
 		getAttrEditor().setText(getNum(), "0x" + red + green + blue);
+		getAttrEditor().setTextBackgroundColor(AttributeEditor.COLOR_ATTR, getNodeLabel().getBackground());
 	}
 }

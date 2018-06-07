@@ -3,6 +3,8 @@ package gui;
 import java.awt.*;
 import javax.swing.*;
 
+import dataStructure.Node;
+
 public class Frame extends JFrame{
 	private TextEditorPane textEditor;
 	private MindMapEditorPane mindMapEditor;
@@ -32,7 +34,7 @@ public class Frame extends JFrame{
 		leftSplit.setEnabled(false);
 		Constants.setComponent(new Point(0, 100), 250,  550, leftSplit);
 		add(leftSplit);
-		
+			
 		setSize(1200, 700);
 		setVisible(true);
 	}

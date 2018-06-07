@@ -40,5 +40,4 @@ abstract public class NodeMouseMethod {
 		this.attrEditor = attrEditor;
 	}
 
-	
 }

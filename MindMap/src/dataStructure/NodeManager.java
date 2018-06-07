@@ -2,6 +2,8 @@ package dataStructure;
 
 import java.util.Stack;
 
+import javax.swing.JOptionPane;
+
 public class NodeManager {
 	private static Node head;
 	
@@ -13,10 +15,12 @@ public class NodeManager {
 		NodeManager.head = head;
 	}
 	
+	
 	static public Node makeTree(String[] parse) {
 		Stack<Node> stack = new Stack<Node>();
 		int index = 0;
 		
+		try {
 		if(parse[0].charAt(0) == '\t')
 			return null;
 		head = new Node(index++, parse[0].replaceAll("[\\r]", ""), 0);
@@ -34,23 +38,26 @@ public class NodeManager {
 					break;
 			}
 		
-			boolean isParentExist = false;
-			while(!stack.empty()) {
-				Node stackNode = stack.pop();
-				if(stackNode.getLevel() + 1 == level) {
-					isParentExist = true;
-					Node newNode = new Node(index++, parse[i].replaceAll("[\\t\\r]", ""), level);
-					newNode.setParent(stackNode);
-					stackNode.addChild(newNode);
-					stack.push(stackNode);
-					stack.push(newNode);
-					break;
+				boolean isParentExist = false;
+				while(!stack.empty()) {
+					Node stackNode = stack.pop();
+					if(stackNode.getLevel() + 1 == level) {
+						isParentExist = true;
+						Node newNode = new Node(index++, parse[i].replaceAll("[\\t\\r]", ""), level);
+						newNode.setParent(stackNode);
+						stackNode.addChild(newNode);
+						stack.push(stackNode);
+						stack.push(newNode);
+						break;
+					}	
+				}
+			
+				if(!isParentExist){
+					return null;
 				}
 			}
-			
-			if(!isParentExist){
-				return null;
-			}
+		}catch(StringIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(null, "잘못된 형식입니다.", "프로그램 오류", JOptionPane.ERROR_MESSAGE);
 		}
 		/****디버그 때만 사용할 함수*******/
 		//debugtravel(head);
