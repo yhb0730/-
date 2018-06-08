@@ -15,10 +15,10 @@ public class TextFieldMouseListener extends MouseAdapter{
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if(nodeLabel != null && attrEditor != null) {
-			Color newColor = JColorChooser.showDialog(null, "Dialog Title", nodeLabel.getBackground());
-			Color reverseColor =  new Color(255 - newColor.getRed(), 255 - newColor.getGreen(), 255 - newColor.getBlue());
-			nodeLabel.setBackground(reverseColor);
 			try {
+				Color newColor = JColorChooser.showDialog(null, "Dialog Title", nodeLabel.getBackground());
+				Color reverseColor =  new Color(255 - newColor.getRed(), 255 - newColor.getGreen(), 255 - newColor.getBlue());
+				nodeLabel.setBackground(reverseColor);
 				int red = newColor.getRed();
 				int green = newColor.getGreen();
 				int blue = newColor.getBlue();

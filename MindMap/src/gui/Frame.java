@@ -6,6 +6,8 @@ import javax.swing.*;
 import dataStructure.Node;
 
 public class Frame extends JFrame{
+	private MenuBar menubar;
+	private ToolBar toolbar;
 	private TextEditorPane textEditor;
 	private MindMapEditorPane mindMapEditor;
 	private AttributeEditorPane attributeEditor;
@@ -34,8 +36,25 @@ public class Frame extends JFrame{
 		leftSplit.setEnabled(false);
 		Constants.setComponent(new Point(0, 100), 250,  550, leftSplit);
 		add(leftSplit);
-			
-		setSize(1200, 700);
+		
+		menubar = new MenuBar();
+		menubar.setTextEditor(textEditor);
+		menubar.setMindMapEditor(mindMapEditor);
+		menubar.setAttrEditor(attributeEditor);
+		menubar.init();
+		this.setJMenuBar(menubar.getMenu());
+		
+		toolbar = new ToolBar();
+		toolbar.setTextEditor(textEditor);
+		toolbar.setMindMapEditor(mindMapEditor);
+		toolbar.setAttrEditor(attributeEditor);
+		toolbar.init();
+		
+		JPanel toolPanel = toolbar.getToolBarPanel();
+		Constants.setComponent(new Point(0, 0), Constants.FRAME_X_SIZE - 750, 50, toolPanel);
+		container.add(toolPanel, BorderLayout.PAGE_START);
+		
+		setSize(Constants.FRAME_X_SIZE, Constants.FRAME_Y_SIZE);
 		setVisible(true);
 	}
 }

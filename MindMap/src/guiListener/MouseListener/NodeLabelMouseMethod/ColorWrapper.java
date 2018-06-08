@@ -1,5 +1,7 @@
 package guiListener.MouseListener.NodeLabelMouseMethod;
 
+import java.awt.Color;
+
 import gui.AttributeEditor;
 import gui.NodeLabel;
 
@@ -10,10 +12,14 @@ public class ColorWrapper extends NodeMouseMethod{
 	
 	@Override
 	public void write() {
-		String red = Integer.toString(getNodeLabel().getBackground().getRed());
-		String green = Integer.toString(getNodeLabel().getBackground().getGreen());
-		String blue = Integer.toString(getNodeLabel().getBackground().getBlue());
-		getAttrEditor().setText(getNum(), "0x" + red + green + blue);
-		getAttrEditor().setTextBackgroundColor(AttributeEditor.COLOR_ATTR, getNodeLabel().getBackground());
+		int red = getNodeLabel().getBackground().getRed();
+		int green = getNodeLabel().getBackground().getGreen();
+		int blue = getNodeLabel().getBackground().getBlue();
+		
+		String redString = Integer.toString(red);
+		String greenString = Integer.toString(getNodeLabel().getBackground().getGreen());
+		String blueString = Integer.toString(getNodeLabel().getBackground().getBlue());
+		getAttrEditor().setText(getNum(), "0x" + redString + greenString + blueString);
+		getAttrEditor().setTextBackgroundColor(AttributeEditor.COLOR_ATTR, new Color(255 - red, 255 - green, 255 - blue)); //이미 바뀐 뒤에 실행되는거라 반전 시켜줘야함
 	}
 }

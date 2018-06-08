@@ -15,7 +15,6 @@ public class NodeLabel extends JLabel{
 	
 	private Node node;
 	private NodeLabel parentLabel;
-	private Arrow arrow;
 	private Point top;
 	private Point bottom;
 	private Point left;
@@ -80,14 +79,6 @@ public class NodeLabel extends JLabel{
 		connectPointInit();
 	}
 
-	public Arrow getArrow() {
-		return arrow;
-	}
-
-	public void setArrow(Arrow arrow) {
-		this.arrow = arrow;
-	}
-
 	public Node getNode() {
 		return node;
 	}
@@ -113,13 +104,13 @@ public class NodeLabel extends JLabel{
 	}
 	
 	public boolean isConnectionPoint(Point point) {
-		if(findPressedConnection(point) < 0)
+		if(findPressedOutline(point) < 0)
 			return false;
 		return true;
 	}
 	
 	public void manipulateBorder(Point pressed, Point released) {
-		int num = findPressedConnection(pressed);
+		int num = findPressedOutline(pressed);
 		Point changedPoint = this.getLocation();
 		int changedWidth = this.getWidth();
 		int changedHeight = this.getHeight();
@@ -165,26 +156,28 @@ public class NodeLabel extends JLabel{
 	}
 	
 	//함수 호출 구조가 문제던가, 이 내부가 문제던가 너무 쓸데없는 구조인거 같음
-	private int findPressedConnection(Point pressed) {
+	private int findPressedOutline(Point pressed) {
 		int x = pressed.x;
 		int y = pressed.y;
+		int halfWidth = getWidth() / 2;
+		int halfHeight = getHeight() / 2;
 		
 		//아래 문제를 해결하려면 작은 JLabel을 붙여서 해결하는게 편해보이긴 하나 이미 만들어놨으므로 이대로 내버려둔다.
 		//offset이 들어가지 않은 부분은 NodeLabel 부분이 아니여서 리스너 자체가 실행이 안되므로 제외한다.
-		if(top.x <= x + (OFFSET / 2) && x <= top.x + (OFFSET / 2))
+		if(top.x - halfWidth <= x && x <= top.x + halfWidth)
 			if(top.y <= y && y <= top.y + (OFFSET / 2))
 				return NodeLabel.UP;
 		
-		if(bottom.x - (OFFSET / 2) <= x && x <= bottom.x + (OFFSET / 2))
+		if(bottom.x - halfWidth <= x && x <= bottom.x + halfWidth)
 			if(bottom.y - (OFFSET / 2) <= y && y <= bottom.y)
 				return NodeLabel.DOWN;
 		
 		if(left.x <= x && x <= left.x + (OFFSET / 2)) 
-			if(left.y - (OFFSET / 2) <= y && y <= left.y + (OFFSET / 2))
+			if(left.y - halfHeight <= y && y <= left.y + halfHeight)
 				return NodeLabel.LEFT;
 		
 		if(right.x - (OFFSET / 2) <= x && x <= right.x)
-			if(right.y - (OFFSET / 2) <= y && y <= right.y + (OFFSET / 2))
+			if(right.y - halfHeight <= y && y <= right.y + halfHeight)
 				return NodeLabel.RIGHT;
 		
 		return -1;

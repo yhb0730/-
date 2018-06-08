@@ -39,15 +39,14 @@ public class MindMapEditor extends JScrollPane {
 		return true;
 	}
 	
-	private void removeAllLabel() {
+	public void removeAllLabel() {
 		for(int i=0; i < nodeArr.size(); ++i) {
-		try {
-			panel.remove(nodeArr.get(i).getArrow());
-		}catch(NullPointerException e) {
-			;
-		}
 			panel.remove(nodeArr.get(i));
 		}
+		getParent().revalidate();
+		getParent().repaint();
+		panel.revalidate();
+		panel.repaint();
 	}
 	
 	//이렇게 그냥 넣으면 노드간에 누가 자식이고 부모인지 구분이 안된다. 걍 만들면서 넣고 그려야한다.
@@ -81,11 +80,6 @@ public class MindMapEditor extends JScrollPane {
 		removeAllLabel();
 		for(int i=0; i < nodeArr.size(); ++i) {
 			panel.add(nodeArr.get(i));
-			try {
-				panel.add(nodeArr.get(i).getArrow());
-			}catch(NullPointerException e) {
-				//최상위 노드는 arrow가 없음
-			}
 		}
 		getParent().revalidate();
 		getParent().repaint();
@@ -112,17 +106,6 @@ public class MindMapEditor extends JScrollPane {
 				queue.add(nextNode);
 			}
 		}
-	}
-
-	public void drawArrow(NodeLabel nodeLabel) {
-		Arrow arrow = new Arrow();
-		NodeLabel parent = nodeLabel.getParentLabel();
-		Point start = nodeLabel.getLocation();
-		Point end = parent.getLocation();
-		arrow.setStart(start);
-		arrow.setEnd(end);
-		nodeLabel.setArrow(arrow);
-		panel.add(arrow);
 	}
 
 }

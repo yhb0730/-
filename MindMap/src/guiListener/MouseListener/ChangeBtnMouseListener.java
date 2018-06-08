@@ -28,6 +28,8 @@ public class ChangeBtnMouseListener extends MouseAdapter{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		boolean isAllChanged = true;
+		
 		if(e.getButton() != MouseEvent.BUTTON1)
 			return ;
 		
@@ -39,9 +41,11 @@ public class ChangeBtnMouseListener extends MouseAdapter{
 				method[i].change();
 			}
 			catch(NumberFormatException exception) {
-				JOptionPane.showMessageDialog(null, "양식에 맞지 않아 적용되지 않은 속성이 존재합니다.", "양식 오류", JOptionPane.ERROR_MESSAGE);
+				isAllChanged = false;
 			}
 		}
+		if(!isAllChanged)
+			JOptionPane.showMessageDialog(null, "양식에 맞지 않아 적용되지 않은 속성이 존재합니다.", "양식 오류", JOptionPane.ERROR_MESSAGE);
 		mindMapEditor.repaintUI();
 	}
 }

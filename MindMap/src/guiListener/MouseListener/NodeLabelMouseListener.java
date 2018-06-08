@@ -51,7 +51,8 @@ public class NodeLabelMouseListener extends MouseAdapter{
 				int red = color.getRed();
 				int green = color.getGreen();
 				int blue = color.getBlue();
-				prevLabel.setBackground(new Color(255 - red, 255 - green, 255 - blue));
+				Color reverseColor = new Color(255 - red, 255 - green, 255 - blue);
+				prevLabel.setBackground(reverseColor);
 			}
 		}
 		if(prevLabel != nodeLabel) {
@@ -68,11 +69,13 @@ public class NodeLabelMouseListener extends MouseAdapter{
 				int red = color.getRed();
 				int green = color.getGreen();
 				int blue = color.getBlue();
-				nodeLabel.setBackground(new Color(255-red, 255-green, 255-blue));
+				Color reverseColor = new Color(255 - red, 255 - green, 255 - blue);
+				nodeLabel.setBackground(reverseColor);	
 			}
 			prevLabel = nodeLabel;
 		}
 		if(method.length != attrEditor.getLength()) {
+			//debug
 			System.out.println("NodeMethod와  attributeEditor의 갯수가 안 맞습니다. 코드 변경 필요");
 			return;
 		}

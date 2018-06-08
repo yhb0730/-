@@ -10,7 +10,7 @@ import guiListener.MouseListener.TextFieldMouseListener;
 
 public class AttributeEditor extends JScrollPane {
 	final public static int COLOR_ATTR= 5;
-	
+	final public static int ATTRIBUTE_NUM = 6;
 	private String[] attributeName = new String[] {"TEXT", "X", "Y", "W", "H", "Color"};
 	private JPanel panel;
 	private AttributeSet[] set;
