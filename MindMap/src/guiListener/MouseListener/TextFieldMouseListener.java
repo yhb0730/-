@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 
 import gui.AttributeEditor;
+import gui.Constants;
 import gui.NodeLabel;
 
 public class TextFieldMouseListener extends MouseAdapter{
@@ -24,6 +25,7 @@ public class TextFieldMouseListener extends MouseAdapter{
 				int blue = newColor.getBlue();
 				attrEditor.setText(AttributeEditor.COLOR_ATTR, "0x" + red + green + blue);
 				attrEditor.setTextBackgroundColor(AttributeEditor.COLOR_ATTR, newColor);
+				Constants.IS_CHANGED = true;
 			}catch(NullPointerException exception) {
 				;
 			}

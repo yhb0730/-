@@ -21,6 +21,7 @@ public class NewMenuActionListener extends OptionActionListener{
 		}
 		attrEditor.setTextBackgroundColor(AttributeEditor.COLOR_ATTR, Color.WHITE);
 		attrEditor.setNodeLabel(null);
+		Constants.IS_CHANGED = false;
 	}
 	
 	@Override

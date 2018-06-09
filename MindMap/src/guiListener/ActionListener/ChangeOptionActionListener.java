@@ -10,7 +10,8 @@ public class ChangeOptionActionListener extends OptionActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		AttributeEditorPane attrEditor = super.getAttrEditor();
-		
+		Constants.IS_CHANGED = true;
+		attrEditor.getChangeBtn().doClick();
 	}
 	
 	@Override

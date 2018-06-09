@@ -15,7 +15,7 @@ public class NodeLabelKeyListener extends KeyAdapter {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
-		NodeLabelMouseListener mListener = new NodeLabelMouseListener(attrEditor);
+		//NodeLabelMouseListener mListener = new NodeLabelMouseListener(attrEditor);
 		//이건 좀 생각을 해봐야될듯. 넣는게 좋은 생각인지 모르겠다.
 		//keyReleased(e);
 	}

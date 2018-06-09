@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 
 import dataStructure.NodeManager;
+import gui.Constants;
 import gui.MindMapEditor;
 import gui.MindMapEditorPane;
 import gui.TextArea;
@@ -33,10 +34,10 @@ public class ApplyBtnMouseListener extends MouseAdapter{
 			return;
 		}
 		if(mindMapEditor.makeTree(parse)) {
-			System.out.println("debug : 제대로 생성됨");
+			Constants.IS_CHANGED = true;
 			mindMapEditor.draw();
 		}
 		else
-			System.out.println("debug : 제대로 생성되지 않음");
+			JOptionPane.showMessageDialog(null, "MindMap이 생성되지 않았습니다.", "양식 오류", JOptionPane.ERROR_MESSAGE);
 	}
 }

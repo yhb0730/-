@@ -9,6 +9,7 @@ import guiListener.MouseListener.NodeLabelMouseMethod.*;
 
 public class NodeLabelMouseListener extends MouseAdapter{
 	private static NodeLabel prevLabel;
+	private MindMapEditor mindMapEditor;
 	private AttributeEditor attrEditor;
 	private NodeMouseMethod[] method;
 	private Point pressedPoint;
@@ -16,8 +17,9 @@ public class NodeLabelMouseListener extends MouseAdapter{
 	private boolean isClicked = false;
 	private boolean isDragged = false;
 	
-	public NodeLabelMouseListener(AttributeEditor attrEditor){
+	public NodeLabelMouseListener(AttributeEditor attrEditor, MindMapEditor mindMapEditor){
 		this.attrEditor = attrEditor;
+		this.mindMapEditor = mindMapEditor;
 		method = new NodeMouseMethod[] {
 				 new TextWrapper(Constants.TEXT_ATTRIBUTE, attrEditor),
 				 new XWrapper(Constants.X_ATTRIBUTE, attrEditor),
@@ -129,11 +131,15 @@ public class NodeLabelMouseListener extends MouseAdapter{
 		Point releasedPoint = new Point(e.getX() + nodeLabel.getX() , e.getY() + nodeLabel.getY()); 
 		
 		if(isDragged && !isBorder && !isClicked) {
+			Constants.IS_CHANGED = true;
 			changeLocation(e);
+			mindMapEditor.repaintUI();
 			mouseClicked(e);
 		}
 		else if(isDragged && isBorder && !isClicked) {
+			Constants.IS_CHANGED = true;
 			nodeLabel.manipulateBorder(pressedPoint, releasedPoint);
+			mindMapEditor.repaintUI();
 			mouseClicked(e);
 		}
 	}
@@ -144,8 +150,9 @@ public class NodeLabelMouseListener extends MouseAdapter{
 		int height = nodeLabel.getHeight();
 		Point originPoint = nodeLabel.getLocation();
 		int changedX = originPoint.x + e.getX() - width/2, changedY = originPoint.y + e.getY() - height / 2;
-		if(changedX < 0 || changedX > Constants.MINDMAP_X_SIZE || changedY < 0 || changedY > Constants.MINDMAP_Y_SIZE)
+		if(changedX < 0 || changedX > Constants.SCROLL_X_SIZE || changedY < 0 || changedY > Constants.SCROLL_Y_SIZE)
 			return;
 		Constants.setComponent(new Point(changedX, changedY), width, height, nodeLabel);
+		nodeLabel.refreshArrow(true);
 	}
 }

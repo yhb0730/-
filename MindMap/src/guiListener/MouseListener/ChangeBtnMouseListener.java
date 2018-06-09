@@ -46,6 +46,8 @@ public class ChangeBtnMouseListener extends MouseAdapter{
 		}
 		if(!isAllChanged)
 			JOptionPane.showMessageDialog(null, "양식에 맞지 않아 적용되지 않은 속성이 존재합니다.", "양식 오류", JOptionPane.ERROR_MESSAGE);
+		Constants.IS_CHANGED = true;
+		attributeEditor.getNodeLabel().refreshArrow(true);
 		mindMapEditor.repaintUI();
 	}
 }

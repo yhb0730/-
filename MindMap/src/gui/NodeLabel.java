@@ -2,9 +2,11 @@ package gui;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.util.Vector;
 
 import javax.swing.*;
 import dataStructure.*;
+import mindMapUtil.MindMapMath;
 
 public class NodeLabel extends JLabel{
 	final static int UP = 0;
@@ -14,23 +16,13 @@ public class NodeLabel extends JLabel{
 	final static int OFFSET = 10;
 	
 	private Node node;
-	private NodeLabel parentLabel;
 	private Point top;
 	private Point bottom;
 	private Point left;
 	private Point right;
-	
-	public NodeLabel getParentLabel() {
-		return parentLabel;
-	}
-
-	public void setParentLabel(NodeLabel parentLabel) {
-		this.parentLabel = parentLabel;
-	}
-
-	public void setBottom(Point bottom) {
-		this.bottom = bottom;
-	}	
+	private Arrow arrow;
+	private NodeLabel parentLabel;
+	private Vector<NodeLabel> childLabel = new Vector<NodeLabel>();
 	
 	public NodeLabel(Node node, NodeLabel parent){
 		this.node = node;
@@ -56,51 +48,6 @@ public class NodeLabel extends JLabel{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		connectPointInit();
-	}
-			
-	public int getWidth() {
-		return this.getSize().width;
-	}
-
-
-	public void setWidth(int width) {
-		setSize(width, getHeight());
-		connectPointInit();
-	}
-
-
-	public int getHeight() {
-		return this.getSize().height;
-	}
-
-
-	public void setHeight(int height) {
-		setSize(getWidth(), height);
-		connectPointInit();
-	}
-
-	public Node getNode() {
-		return node;
-	}
-		
-	public void setNode(Node node) {
-		this.node = node;
-	}
-		
-	public Point getTop() {
-		return top;
-	}
-
-	public Point getBottom() {
-		return bottom;
-	}
-
-	public Point getLeft() {
-		return left;
-	}
-
-	public Point getRight() {
-		return right;
 	}
 	
 	public boolean isConnectionPoint(Point point) {
@@ -153,6 +100,8 @@ public class NodeLabel extends JLabel{
 			break;
 		}
 		Constants.setComponent(changedPoint, changedWidth, changedHeight, this);
+		connectPointInit();
+		refreshArrow(true);
 	}
 	
 	//함수 호출 구조가 문제던가, 이 내부가 문제던가 너무 쓸데없는 구조인거 같음
@@ -183,4 +132,111 @@ public class NodeLabel extends JLabel{
 		return -1;
 	}
 	
+	public Arrow determineArrow() {
+		connectPointInit();
+		if(parentLabel == null)
+			return null;
+		Point parentPoint = parentLabel.getLocation(); 
+		Point myPoint = this.getLocation();
+		MindMapMath.calculateShortestConnectionPoint(this, parentLabel, myPoint, parentPoint);
+		arrow = new Arrow(myPoint , parentPoint);
+		return arrow;
+	}
+	
+	public void refreshArrow(boolean isFirstTry) {
+		this.connectPointInit();
+		if(arrow != null) {
+			Point parentPoint = parentLabel.getLocation();
+			Point myPoint = this.getLocation();
+			MindMapMath.calculateShortestConnectionPoint(this, parentLabel, myPoint, parentPoint);
+			arrow.refreshArrow(myPoint, parentPoint);
+		}
+		
+		if(isFirstTry == true) {
+			for(int i=0; i < childLabel.size(); ++i) {
+				childLabel.get(i).refreshArrow(false);
+			}
+		}
+	}
+	
+	public Arrow getArrow() {
+		return arrow;
+	}
+	
+	public NodeLabel getParentLabel() {
+		return parentLabel;
+	}
+
+	public void setParentLabel(NodeLabel parentLabel) {
+		this.parentLabel = parentLabel;
+	}
+
+	public Vector<NodeLabel> getChildVector(){
+		return childLabel;
+	}
+
+	public Point getConnectPointByIndex(int index) {
+		switch(index) {
+		case UP :
+			return getTop();
+		case DOWN :
+			return getBottom();
+		case LEFT :
+			return getLeft();
+		case RIGHT :
+			return getRight();
+		default :
+			JOptionPane.showMessageDialog(null, "Error Occur!", "Error Message", JOptionPane.ERROR_MESSAGE);
+			return null;
+		}
+	}
+	
+	public void setBottom(Point bottom) {
+		this.bottom = bottom;
+	}
+	
+	public int getWidth() {
+		return this.getSize().width;
+	}
+
+
+	public void setWidth(int width) {
+		setSize(width, getHeight());
+		connectPointInit();
+	}
+
+
+	public int getHeight() {
+		return this.getSize().height;
+	}
+
+
+	public void setHeight(int height) {
+		setSize(getWidth(), height);
+		connectPointInit();
+	}
+
+	public Node getNode() {
+		return node;
+	}
+
+	public void setNode(Node node) {
+		this.node = node;
+	}
+
+	public Point getTop() {
+		return top;
+	}
+
+	public Point getBottom() {
+		return bottom;
+	}
+
+	public Point getLeft() {
+		return left;
+	}
+
+	public Point getRight() {
+		return right;
+	}
 }

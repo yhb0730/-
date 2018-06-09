@@ -8,7 +8,9 @@ public class Constants {
 	//650 548
 	static public final int MINDMAP_X_SIZE = 650;
 	static public final int MINDMAP_Y_SIZE = 548;
-		
+	static public final int SCROLL_X_SIZE = 1000;
+	static public final int SCROLL_Y_SIZE = 1000;
+	
 	static public final int NODE_X_SIZE = 30;
 	static public final int NODE_Y_SIZE = 30;
 	
@@ -21,7 +23,8 @@ public class Constants {
 	static public final int WIDTH_ATTRIBUTE = 3;
 	static public final int HEIGHT_ATTRIBUTE = 4;
 	static public final int COLOR_ATTRIBUTE = 5;
-	
+
+	static public boolean IS_CHANGED = false;
 	
 	public static void setComponent(Point point, int sizeX, int sizeY, JComponent component) {
 		setComponent(point, sizeX, sizeY, 10, component);

@@ -3,28 +3,19 @@ package gui;
 import java.awt.*;
 import javax.swing.*;
 
-public class Arrow extends JPanel{
+public class Arrow extends JComponent{
 	private Point start;
 	private Point end;
-	private Color color;
-	
-	Arrow(){
-		this(null, null, Color.BLACK);
-	}
-	
+
 	Arrow(Point start, Point end){
-		this(start, end, Color.BLACK);
-	}
-	
-	Arrow(Point start, Point end, Color color){
 		this.start = start;
 		this.end = end;
-		this.color = color;
 	}
 	
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		g.setColor(Color.BLACK);
 		g.drawLine(start.x, start.y, end.x, end.y);
 	}
 
@@ -43,12 +34,9 @@ public class Arrow extends JPanel{
 	public void setEnd(Point end) {
 		this.end = end;
 	}
-
-	public Color getColor() {
-		return color;
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
+	
+	public void refreshArrow(Point start, Point end) {
+		this.start = start;
+		this.end = end;
 	}
 }
