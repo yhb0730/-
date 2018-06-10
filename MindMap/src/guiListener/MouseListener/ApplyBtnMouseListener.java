@@ -5,9 +5,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 
 
-import dataStructure.NodeManager;
 import gui.Constants;
-import gui.MindMapEditor;
 import gui.MindMapEditorPane;
 import gui.TextArea;
 

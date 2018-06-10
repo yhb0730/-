@@ -11,6 +11,7 @@ public class TextEditorPane extends JPanel {
 	private TextArea textArea;
 	private JButton applyBtn;
 	private MindMapEditorPane mindMapEditor;
+	private MouseAdapter listener;
 	
 	TextEditorPane(MindMapEditorPane mindMapEditor){
 		this.mindMapEditor = mindMapEditor;
@@ -26,10 +27,8 @@ public class TextEditorPane extends JPanel {
 		
 		applyBtn = new JButton("Apply");
 		Constants.setComponent(new Point(0, 515), 235, 30, applyBtn);
-		{
-			MouseAdapter listener = new ApplyBtnMouseListener(textArea, mindMapEditor);
-			applyBtn.addMouseListener(listener);	
-		}
+		listener = new ApplyBtnMouseListener(textArea, mindMapEditor);
+		applyBtn.addMouseListener(listener);	
 		add(applyBtn);
 	}
 	
@@ -39,6 +38,14 @@ public class TextEditorPane extends JPanel {
 	
 	public void setText(String text) {
 		textArea.setText(text);
+	}
+	
+	public JButton getButton() {
+		return applyBtn;
+	}
+	
+	public MouseAdapter getMouseListener() {
+		return listener;
 	}
 }
 

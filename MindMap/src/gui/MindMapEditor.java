@@ -26,13 +26,17 @@ public class MindMapEditor extends JScrollPane {
 		panel.setPreferredSize(new Dimension(Constants.SCROLL_X_SIZE, Constants.SCROLL_Y_SIZE)); //Scrollpane은  미니멈, 맥시멈, setSize를 전부 무시해버린다. preferred만 작용
 		
 		title = new JButton("Mind Map Pane");
-		Constants.setComponent(new Point(240, 0), 180, 30, 20, title);
+		Constants.setComponent(new Point(Constants.SCROLL_X_SIZE / 2 - 30, 0), 180, 30, 20, title);
 		title.setEnabled(false);
 		panel.add(title);
 		
 		setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		getViewport().add(panel, null);
+	}
+	
+	public JPanel getPanel() {
+		return this.panel;
 	}
 	
 	boolean makeTree(String[] parse) {
@@ -98,7 +102,7 @@ public class MindMapEditor extends JScrollPane {
 		}
 		else {
 			range = 10;
-			draw(NodeManager.getHead(), new Point(300, 300));
+			draw(NodeManager.getHead(), new Point(Constants.SCROLL_X_SIZE / 2, Constants.SCROLL_Y_SIZE / 2));
 			getParent().revalidate();
 			getParent().repaint();
 			panel.revalidate();
@@ -109,24 +113,43 @@ public class MindMapEditor extends JScrollPane {
 	void draw(Node node, Point location) {
 		Queue<Node> queue = new LinkedList<Node>();
 		NodeLabel nodeLabel = makeNodeLabel(node, null);
-		Constants.setComponent(new Point(location.x + node.getLevel() * 10 + range, location.y + node.getLevel() * 10 + range), Constants.NODE_X_SIZE, Constants.NODE_Y_SIZE, nodeLabel);
+		Constants.setComponent(new Point(location.x, location.y), Constants.NODE_X_SIZE, Constants.NODE_Y_SIZE, nodeLabel);
 		nodeLabel.connectPointInit(); //먼저 init가 안되기때문
 		panel.add(nodeLabel);
-		queue.add(node);
+		//queue.add(node);
+		
+		NodeLabel rootLabel = nodeLabel;
+		double degree = 360.0 / (double)node.getSize();
+		double curDegree = 0;
+		for(int i=0; i < node.getSize(); ++i) {
+			Node levelOneNode = node.getChild(i);
+			nodeLabel = makeNodeLabel(levelOneNode, rootLabel);
+			Constants.setComponent(new Point((int)(location.x + 150 * Math.cos(curDegree)), (int)(location.y + 150 * Math.sin(curDegree))), Constants.NODE_X_SIZE, Constants.NODE_Y_SIZE, nodeLabel);
+			curDegree += degree;
+			queue.add(levelOneNode);
+			Arrow arrow = nodeLabel.determineArrow();
+			Constants.setComponent(new Point(0, 0), Constants.SCROLL_X_SIZE, Constants.SCROLL_Y_SIZE, arrow);
+			arrowVector.add(arrow);
+			panel.add(arrow);
+			panel.add(nodeLabel);
+		}
 		
 		while(!queue.isEmpty()) {
 			Node cur = queue.remove();
+			degree = 360.0 / (double)cur.getSize();
+			curDegree = degree;
 			for(int next = 0; next < cur.getSize(); ++next) {
 				Node nextNode = cur.getChild(next);
 				nodeLabel = makeNodeLabel(nextNode, cur.getMyNodeLabel());
-				Constants.setComponent(new Point(location.x + node.getLevel() * 100 + range * 5, location.y + node.getLevel() * 10 + range), Constants.NODE_X_SIZE, Constants.NODE_Y_SIZE, nodeLabel);
-				range += 10;
+				Point parentLocation = cur.getMyNodeLabel().getLocation();
+				Constants.setComponent(new Point((int)(parentLocation.x + 80 * Math.cos(curDegree)), (int)(parentLocation.y + 80 * Math.sin(curDegree))), Constants.NODE_X_SIZE, Constants.NODE_Y_SIZE, nodeLabel);
 				queue.add(nextNode);
 				Arrow arrow = nodeLabel.determineArrow();
-				Constants.setComponent(new Point(0, 0), 1000, 1000, arrow);
+				Constants.setComponent(new Point(0, 0), Constants.SCROLL_X_SIZE, Constants.SCROLL_Y_SIZE, arrow);
 				arrowVector.add(arrow);
 				panel.add(arrow);
 				panel.add(nodeLabel);
+				curDegree += degree;
 			}
 		}
 	}

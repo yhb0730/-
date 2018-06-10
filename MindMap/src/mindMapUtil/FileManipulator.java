@@ -1,6 +1,5 @@
 package mindMapUtil;
 
-import java.awt.*;
 import java.io.File;
 
 import javax.swing.*;

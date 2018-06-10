@@ -1,12 +1,9 @@
 package gui;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 
 import javax.swing.*;
 
-import dataStructure.Node;
-import guiListener.MouseListener.ChangeBtnMouseListener;
 
 public class MindMapEditorPane extends JPanel{
 	private MindMapEditor mindMapEditor;

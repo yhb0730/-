@@ -1,6 +1,9 @@
 package guiListener.ActionListener;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JButton;
 
 import gui.*;
 
@@ -11,7 +14,9 @@ public class ChangeOptionActionListener extends OptionActionListener{
 		// TODO Auto-generated method stub
 		AttributeEditorPane attrEditor = super.getAttrEditor();
 		Constants.IS_CHANGED = true;
-		attrEditor.getChangeBtn().doClick();
+		JButton btn = attrEditor.getChangeBtn();
+		MouseEvent e = new MouseEvent(btn, 0, 0, 0, 0, 0, 0, false, MouseEvent.BUTTON1);
+		attrEditor.getMyMouseListener().mouseClicked(e);
 	}
 	
 	@Override

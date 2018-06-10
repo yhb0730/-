@@ -6,16 +6,17 @@ import javax.swing.*;
 import guiListener.ActionListener.*;
 
 public abstract class OptionBar extends JComponent {
-	final private String[] optionName = new String[] {"새로 만들기", "열기", "저장", "다른 이름으로 저장", "닫기", "적용", "변경"};
+	final private String[] optionName = new String[] {"새로 만들기", "열기", "저장", "다른 이름으로 저장", "JPG로 저장", "닫기", "적용", "변경"};
 	final private OptionActionListener[] listener = new OptionActionListener[] {
 			new NewMenuActionListener(),
 			new OpenOptionActionListener(),
 			new SaveOptionActionListener(),
 			new SaveAnotherOptionActionListener(),
+			new SaveJpgOptionActionListener(),
 			new CloseOptionActionListener(),
 			new ApplyOptionActionListener(),
 			new ChangeOptionActionListener()}; 
-	final static int OPTION_NUM = 7;
+	final static int OPTION_NUM = 8;
 	private TextEditorPane textEditor;
 	private MindMapEditorPane mindMapEditor;
 	private AttributeEditorPane attrEditor;

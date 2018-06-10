@@ -3,7 +3,6 @@ package guiListener.MouseListener.NodeLabelMouseMethod;
 import java.awt.Color;
 
 import gui.AttributeEditor;
-import gui.NodeLabel;
 
 public class ColorWrapper extends NodeMouseMethod{
 	public ColorWrapper(int num, AttributeEditor attrEditor) {

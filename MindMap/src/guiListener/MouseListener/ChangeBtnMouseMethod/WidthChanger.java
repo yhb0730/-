@@ -3,7 +3,7 @@ package guiListener.MouseListener.ChangeBtnMouseMethod;
 import java.awt.Point;
 
 import gui.AttributeEditor;
-import gui.NodeLabel;
+
 
 public class WidthChanger extends ChangeBtnMethod{
 

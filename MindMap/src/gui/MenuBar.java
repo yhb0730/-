@@ -1,8 +1,6 @@
 package gui;
 
-import java.awt.*;
 import java.awt.event.ActionListener;
-import gui.*;
 import javax.swing.*;
 
 import guiListener.ActionListener.*;

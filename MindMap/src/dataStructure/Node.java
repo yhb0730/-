@@ -3,7 +3,6 @@ package dataStructure;
 import java.awt.Point;
 import java.util.Vector;
 
-import gui.Constants;
 import gui.NodeLabel;
 
 public class Node {

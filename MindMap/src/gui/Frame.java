@@ -3,8 +3,6 @@ package gui;
 import java.awt.*;
 import javax.swing.*;
 
-import dataStructure.Node;
-
 public class Frame extends JFrame{
 	private MenuBar menubar;
 	private ToolBar toolbar;
@@ -51,7 +49,7 @@ public class Frame extends JFrame{
 		toolbar.init();
 		
 		JPanel toolPanel = toolbar.getToolBarPanel();
-		Constants.setComponent(new Point(0, 0), Constants.FRAME_X_SIZE - 750, 50, toolPanel);
+		Constants.setComponent(new Point(0, 0), Constants.FRAME_X_SIZE - 650, 50, toolPanel);
 		container.add(toolPanel, BorderLayout.PAGE_START);
 		
 		setSize(Constants.FRAME_X_SIZE, Constants.FRAME_Y_SIZE);

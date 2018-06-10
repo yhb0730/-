@@ -11,6 +11,7 @@ public class AttributeEditorPane extends JPanel{
 	private JButton title;
 	private AttributeEditor attributeEditor;
 	private JButton changeBtn;
+	private MouseAdapter listener;
 	
 	AttributeEditorPane(){
 		setLayout(null);
@@ -30,8 +31,12 @@ public class AttributeEditorPane extends JPanel{
 	}
 	
 	public void addMouseListener(MindMapEditor mindMapEditor) {
-		MouseAdapter listener = new ChangeBtnMouseListener(attributeEditor, mindMapEditor);
+		listener = new ChangeBtnMouseListener(attributeEditor, mindMapEditor);
 		changeBtn.addMouseListener(listener);
+	}
+	
+	public MouseAdapter getMyMouseListener() {
+		return listener;
 	}
 	
 	public AttributeEditor getAttributeEditor() {

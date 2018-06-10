@@ -3,7 +3,6 @@ package guiListener.KeyListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import gui.AttributeEditor;
-import guiListener.MouseListener.NodeLabelMouseListener;
 
 public class NodeLabelKeyListener extends KeyAdapter {
 	private AttributeEditor attrEditor;

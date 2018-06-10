@@ -29,7 +29,6 @@ public class ChangeBtnMouseListener extends MouseAdapter{
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		boolean isAllChanged = true;
-		
 		if(e.getButton() != MouseEvent.BUTTON1)
 			return ;
 		
@@ -49,5 +48,9 @@ public class ChangeBtnMouseListener extends MouseAdapter{
 		Constants.IS_CHANGED = true;
 		attributeEditor.getNodeLabel().refreshArrow(true);
 		mindMapEditor.repaintUI();
+	}
+	
+	public ColorChanger getColorChanger(){
+		return (ColorChanger) method[4];
 	}
 }

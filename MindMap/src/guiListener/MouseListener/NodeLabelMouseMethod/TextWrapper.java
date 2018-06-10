@@ -1,7 +1,6 @@
 package guiListener.MouseListener.NodeLabelMouseMethod;
 
 import gui.AttributeEditor;
-import gui.NodeLabel;
 
 public class TextWrapper extends NodeMouseMethod{
 	public TextWrapper(int num, AttributeEditor attrEditor) {

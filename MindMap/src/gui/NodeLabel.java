@@ -139,7 +139,7 @@ public class NodeLabel extends JLabel{
 		Point parentPoint = parentLabel.getLocation(); 
 		Point myPoint = this.getLocation();
 		MindMapMath.calculateShortestConnectionPoint(this, parentLabel, myPoint, parentPoint);
-		arrow = new Arrow(myPoint , parentPoint);
+		arrow = new Arrow(myPoint, parentPoint);
 		return arrow;
 	}
 	
