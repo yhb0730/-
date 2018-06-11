@@ -9,11 +9,11 @@ import dataStructure.*;
 import mindMapUtil.MindMapMath;
 
 public class NodeLabel extends JLabel{
-	final static int UP = 0;
-	final static int DOWN = 1;
-	final static int LEFT = 2;
-	final static int RIGHT = 3;
-	final static int OFFSET = 10;
+	final public static int UP = 0;
+	final public static int DOWN = 1;
+	final public static int LEFT = 2;
+	final public static int RIGHT = 3;
+	final public static int OFFSET = 10;
 	
 	private Node node;
 	private Point top;
@@ -105,7 +105,7 @@ public class NodeLabel extends JLabel{
 	}
 	
 	//함수 호출 구조가 문제던가, 이 내부가 문제던가 너무 쓸데없는 구조인거 같음
-	private int findPressedOutline(Point pressed) {
+	public int findPressedOutline(Point pressed) {
 		int x = pressed.x;
 		int y = pressed.y;
 		int halfWidth = getWidth() / 2;
@@ -130,6 +130,22 @@ public class NodeLabel extends JLabel{
 				return NodeLabel.RIGHT;
 		
 		return -1;
+	}
+	
+	public Point getConnectPointByIndex(int index) {
+		switch(index) {
+		case UP :
+			return getTop();
+		case DOWN :
+			return getBottom();
+		case LEFT :
+			return getLeft();
+		case RIGHT :
+			return getRight();
+		default :
+			JOptionPane.showMessageDialog(null, "Error Occur!", "Error Message", JOptionPane.ERROR_MESSAGE);
+			return null;
+		}
 	}
 	
 	public Arrow determineArrow() {
@@ -162,7 +178,6 @@ public class NodeLabel extends JLabel{
 	public Arrow getArrow() {
 		return arrow;
 	}
-	
 	public NodeLabel getParentLabel() {
 		return parentLabel;
 	}
@@ -173,22 +188,6 @@ public class NodeLabel extends JLabel{
 
 	public Vector<NodeLabel> getChildVector(){
 		return childLabel;
-	}
-
-	public Point getConnectPointByIndex(int index) {
-		switch(index) {
-		case UP :
-			return getTop();
-		case DOWN :
-			return getBottom();
-		case LEFT :
-			return getLeft();
-		case RIGHT :
-			return getRight();
-		default :
-			JOptionPane.showMessageDialog(null, "Error Occur!", "Error Message", JOptionPane.ERROR_MESSAGE);
-			return null;
-		}
 	}
 	
 	public void setBottom(Point bottom) {

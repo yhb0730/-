@@ -26,13 +26,14 @@ public class MindMapEditor extends JScrollPane {
 		panel.setPreferredSize(new Dimension(Constants.SCROLL_X_SIZE, Constants.SCROLL_Y_SIZE)); //Scrollpane은  미니멈, 맥시멈, setSize를 전부 무시해버린다. preferred만 작용
 		
 		title = new JButton("Mind Map Pane");
-		Constants.setComponent(new Point(Constants.SCROLL_X_SIZE / 2 - 30, 0), 180, 30, 20, title);
+		Constants.setComponent(new Point(Constants.SCROLL_X_SIZE / 2 - 50, 0), 180, 30, 20, title);
 		title.setEnabled(false);
 		panel.add(title);
 		
 		setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		getViewport().add(panel, null);
+		this.getViewport().setViewPosition(new Point(Constants.MINDMAP_X_SIZE - 450, Constants.MINDMAP_Y_SIZE - 350)); //순서가 add 뒤에 와야한다.		
 	}
 	
 	public JPanel getPanel() {

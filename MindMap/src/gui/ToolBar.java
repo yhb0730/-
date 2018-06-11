@@ -16,12 +16,21 @@ public class ToolBar extends OptionBar{
 	private JPanel panel;
 	final private JToolBar toolbar = new JToolBar();
 	private JButton[] toolBtn;
-	private Image[] btnImage;;
+	private Image[] btnImage;
+	final private String[] toolTip = new String[] {
+			"새로운 파일을 만듭니다.",
+			"다른 파일을 불러옵니다.",
+			"현재 파일을 저장합니다.",
+			"현재 파일을 다른 이름으로 저장합니다.",
+			"현재 MindMapPane의 그림을 JPG형태로 저장합니다.",
+			"프로그램을 종료합니다.",
+			"TextEditor 부분의 내용을 적용합니다.",
+			"Attribute 부분의 내용으로 노드를 변경합니다." };
 	
 	@Override
 	void init() {
 		// TODO Auto-generated method stub
-		imageInit();
+		//imageInit();
 		panel = new JPanel();
 		toolBtn = new JButton[super.OPTION_NUM];
 		for(int i=0; i < super.OPTION_NUM; ++i) {
@@ -32,6 +41,7 @@ public class ToolBar extends OptionBar{
 			toolBtn[i] = new JButton(super.getOptionName(i));
 			//toolBtn[i] = new JButton();
 			//toolBtn[i].setIcon(new ImageIcon(btnImage[i]));
+			toolBtn[i].setToolTipText(toolTip[i]);
 			toolBtn[i].addActionListener(listener);
 			toolbar.add(toolBtn[i]);
 			toolbar.addSeparator();

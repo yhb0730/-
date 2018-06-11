@@ -3,12 +3,15 @@ package guiListener.ActionListener;
 import java.awt.event.ActionEvent;
 
 import gui.*;
+import mindMapUtil.FileManipulator;
 
 public class SaveAnotherOptionActionListener extends OptionActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
+		FileManipulator file = new FileManipulator();
+		file.save();
 	}
 	
 	@Override
