@@ -104,7 +104,6 @@ public class NodeLabel extends JLabel{
 		refreshArrow(true);
 	}
 	
-	//함수 호출 구조가 문제던가, 이 내부가 문제던가 너무 쓸데없는 구조인거 같음
 	public int findPressedOutline(Point pressed) {
 		int x = pressed.x;
 		int y = pressed.y;

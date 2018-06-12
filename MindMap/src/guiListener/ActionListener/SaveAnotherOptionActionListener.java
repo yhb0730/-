@@ -1,7 +1,18 @@
 package guiListener.ActionListener;
 
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import org.json.simple.JSONObject;
+
+import dataStructure.JsonNode;
 import gui.*;
 import mindMapUtil.FileManipulator;
 
@@ -11,7 +22,27 @@ public class SaveAnotherOptionActionListener extends OptionActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		FileManipulator file = new FileManipulator();
-		file.save();
+		
+		JSONObject object = JsonNode.makeJsonNode();
+		
+		
+		/*JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("json", "json", "json");
+		chooser.setFileFilter(filter);
+		int ret = chooser.showSaveDialog(null);
+		if(ret == JFileChooser.APPROVE_OPTION) {
+			String pathName = chooser.getSelectedFile().getPath();
+		
+				FileWriter writer;
+				try {
+					writer = new FileWriter(pathName + ".json");
+					writer.write(object.toJSONString());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+		}*/
 	}
 	
 	@Override

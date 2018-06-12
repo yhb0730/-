@@ -1,9 +1,10 @@
 package gui;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 
-import javax.swing.*;
+import javax.swing.JComponent;
 
 public class Shadow extends JComponent{
 	private int height;

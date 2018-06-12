@@ -47,7 +47,6 @@ public class MindMapEditor extends JScrollPane {
 			arrowVector.removeAllElements();
 		}
 		if(NodeManager.makeTree(parse) == null) {
-			JOptionPane.showMessageDialog(null, "마인드 맵이 제대로 생성되지 않았습니다.", "프로그램 오류", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		return true;
