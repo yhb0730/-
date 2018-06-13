@@ -26,6 +26,9 @@ public class AttributeEditor extends JScrollPane {
 			panel.add(set[i]);
 		}
 		set[COLOR_ATTR].setAttrEditor(this);
+		setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		panel.setPreferredSize(new Dimension(240, 500));
 		this.getViewport().add(panel);
 	}
 		

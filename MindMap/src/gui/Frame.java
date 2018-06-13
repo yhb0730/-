@@ -3,6 +3,8 @@ package gui;
 import java.awt.*;
 import javax.swing.*;
 
+import org.json.simple.JSONObject;
+
 public class Frame extends JFrame{
 	private MenuBar menubar;
 	private ToolBar toolbar;
@@ -11,6 +13,8 @@ public class Frame extends JFrame{
 	private AttributeEditorPane attributeEditor;
 	private JSplitPane leftSplit;
 	private JSplitPane rightSplit;
+	
+	public static JSONObject obj = null;
 	
 	public Frame() {
 		setTitle("MindMap Application v0.01");

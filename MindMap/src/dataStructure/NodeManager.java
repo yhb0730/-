@@ -65,6 +65,7 @@ public class NodeManager {
 		return head;
 	}
 	
+	
 	private static void debugtravel(Node node) {
 		Node cur = node;
 		if(cur.getParent() == null) {

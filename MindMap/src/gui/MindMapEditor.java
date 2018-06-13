@@ -6,6 +6,9 @@ import java.util.Vector;
 import java.util.LinkedList;
 import java.util.Queue;
 import javax.swing.*;
+
+import org.json.simple.JSONObject;
+
 import dataStructure.Node;
 import dataStructure.NodeManager;
 import guiListener.MouseListener.NodeLabelMouseListener;
@@ -26,13 +29,14 @@ public class MindMapEditor extends JScrollPane {
 		panel.setPreferredSize(new Dimension(Constants.SCROLL_X_SIZE, Constants.SCROLL_Y_SIZE)); //Scrollpane은  미니멈, 맥시멈, setSize를 전부 무시해버린다. preferred만 작용
 		
 		title = new JButton("Mind Map Pane");
-		Constants.setComponent(new Point(Constants.SCROLL_X_SIZE / 2 - 30, 0), 180, 30, 20, title);
+		Constants.setComponent(new Point(Constants.SCROLL_X_SIZE / 2 - 50, 0), 180, 30, 20, title);
 		title.setEnabled(false);
 		panel.add(title);
 		
 		setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		getViewport().add(panel, null);
+		this.getViewport().setViewPosition(new Point(Constants.MINDMAP_X_SIZE - 450, Constants.MINDMAP_Y_SIZE - 350)); //순서가 add 뒤에 와야한다.		
 	}
 	
 	public JPanel getPanel() {
@@ -46,7 +50,6 @@ public class MindMapEditor extends JScrollPane {
 			arrowVector.removeAllElements();
 		}
 		if(NodeManager.makeTree(parse) == null) {
-			JOptionPane.showMessageDialog(null, "마인드 맵이 제대로 생성되지 않았습니다.", "프로그램 오류", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		return true;
@@ -153,6 +156,48 @@ public class MindMapEditor extends JScrollPane {
 			}
 		}
 	}
+	
+	NodeLabel makeNodeLabel(Node node) {
+		NodeLabel nodeLabel = node.getMyNodeLabel();
+		attrEditor.setNodeLabel(nodeLabel); //여기를 안 해서 고생함. 중요(6월2일) 이걸 먼저 안해줘서 NodeLabelMouseMethod에서 nodeLabel이  null이 되서 들어감. 기존 코드는 nodeLabel을 넘겨줬기 때문에 이걸 하는걸 까먹음
+		MouseAdapter listener = new NodeLabelMouseListener(attrEditor, this);
+		nodeLabel.addMouseListener(listener);
+		nodeLabel.addMouseMotionListener(listener); //motionListener와 mouseListener는 별개. Dragged는 motionListener이다.
+		node.setMyNodeLabel(nodeLabel);
+		nodeVector.add(nodeLabel);
+		attrEditor.setNodeLabel(null); //아무것도 선택되지 않은 채 change 버튼 눌리면 작동 안하도록 하기 위해 만든 코드. NodeLabelMouseListener의 잘못된 구조 때문에 들어간거지만 이보다 간단하게 해결할 수 있는 방법은 존재하지 않는다.
+		return nodeLabel;
+	}
 
+	public void drawJson(JSONObject obj) {
+		removeAllLabel();
+		nodeVector.removeAllElements();
+		arrowVector.removeAllElements();
+		Queue<Node> queue = new LinkedList<Node>();
+		Node head = NodeManager.getHead();
+		NodeLabel nodeLabel = makeNodeLabel(head);
+		nodeLabel.connectPointInit();
+		panel.add(nodeLabel);
+		
+		queue.add(head);
+		
+		while(!queue.isEmpty()) {
+			Node cur = queue.remove();
+			for(int next = 0; next < cur.getSize(); ++next) {
+				Node nextNode = cur.getChild(next);
+				nodeLabel = makeNodeLabel(nextNode);
+				queue.add(nextNode);
+				Arrow arrow = nodeLabel.determineArrow();
+				Constants.setComponent(new Point(0, 0), Constants.SCROLL_X_SIZE, Constants.SCROLL_Y_SIZE, arrow);
+				arrowVector.add(arrow);
+				panel.add(arrow);
+				panel.add(nodeLabel);
+			}
+		}
+		getParent().revalidate();
+		getParent().repaint();
+		panel.revalidate();
+		panel.repaint();
+	}
 }
 

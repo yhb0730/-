@@ -6,13 +6,13 @@ import javax.swing.*;
 import guiListener.ActionListener.*;
 
 public abstract class OptionBar extends JComponent {
-	final private String[] optionName = new String[] {"새로 만들기", "열기", "저장", "다른 이름으로 저장", "JPG로 저장", "닫기", "적용", "변경"};
+	final private String[] optionName = new String[] {"새로 만들기", "열기", "저장", "다른 이름으로 저장", "이미지로 저장", "닫기", "적용", "변경"};
 	final private OptionActionListener[] listener = new OptionActionListener[] {
 			new NewMenuActionListener(),
 			new OpenOptionActionListener(),
 			new SaveOptionActionListener(),
 			new SaveAnotherOptionActionListener(),
-			new SaveJpgOptionActionListener(),
+			new SaveImageOptionActionListener(),
 			new CloseOptionActionListener(),
 			new ApplyOptionActionListener(),
 			new ChangeOptionActionListener()}; 

@@ -16,6 +16,7 @@ public class NodeLabelMouseListener extends MouseAdapter{
 	private boolean isBorder = false;
 	private boolean isClicked = false;
 	private boolean isDragged = false;
+	private Shadow shadow;
 	
 	public NodeLabelMouseListener(AttributeEditor attrEditor, MindMapEditor mindMapEditor){
 		this.attrEditor = attrEditor;
@@ -82,6 +83,7 @@ public class NodeLabelMouseListener extends MouseAdapter{
 			return;
 		}
 		attrEditor.setNodeLabel(nodeLabel);
+		
 		for(int i=0; i < method.length; ++i) {
 			method[i].write();
 		}
@@ -110,6 +112,7 @@ public class NodeLabelMouseListener extends MouseAdapter{
 		Point point = new Point(e.getX() + nodeLabel.getX(),e.getY() + nodeLabel.getY());
 		pressedPoint = point;
 		
+		shadow = new Shadow(nodeLabel);
 		if(nodeLabel.isConnectionPoint(point))
 			isBorder = true;
 		
@@ -120,6 +123,13 @@ public class NodeLabelMouseListener extends MouseAdapter{
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		isDragged = true;
+		
+		if(!isBorder) {
+			draggedMoveShadow(e);
+		}
+		else {
+			draggedBorderShadow(e);
+		}
 	}
 	
 	@Override
@@ -129,6 +139,9 @@ public class NodeLabelMouseListener extends MouseAdapter{
 		
 		NodeLabel nodeLabel = (NodeLabel)e.getSource();
 		Point releasedPoint = new Point(e.getX() + nodeLabel.getX() , e.getY() + nodeLabel.getY()); 
+		if(isDragged) {
+			mindMapEditor.getPanel().remove(shadow);
+		}
 		
 		if(isDragged && !isBorder && !isClicked) {
 			Constants.IS_CHANGED = true;
@@ -142,6 +155,39 @@ public class NodeLabelMouseListener extends MouseAdapter{
 			mindMapEditor.repaintUI();
 			mouseClicked(e);
 		}
+	}
+	
+	void draggedMoveShadow(MouseEvent e) {
+		JPanel panel = this.mindMapEditor.getPanel();
+		NodeLabel nodeLabel = (NodeLabel)e.getSource();
+		Point nodePoint = nodeLabel.getLocation();
+		Point newPoint = new Point(nodePoint.x + e.getX(), nodePoint.y + e.getY());
+		try {
+			panel.remove(shadow);
+		}catch(NullPointerException exception) {
+			;
+		}
+		shadow.NodeMove(newPoint);
+		Constants.setComponent(new Point(0,0), Constants.SCROLL_X_SIZE, Constants.SCROLL_Y_SIZE, shadow);
+		panel.add(shadow);
+		mindMapEditor.revalidate();
+		mindMapEditor.repaint();
+	}
+	
+	void draggedBorderShadow(MouseEvent e) {
+		JPanel panel = this.mindMapEditor.getPanel();
+		NodeLabel nodeLabel = (NodeLabel)e.getSource();
+		int num = nodeLabel.findPressedOutline(pressedPoint);
+		try {
+			panel.remove(shadow);
+		}catch(NullPointerException exception) {
+			;
+		}
+		shadow.borderMoved(num, e);
+		Constants.setComponent(new Point(0,0), Constants.SCROLL_X_SIZE, Constants.SCROLL_Y_SIZE, shadow);
+		panel.add(shadow);
+		mindMapEditor.revalidate();
+		mindMapEditor.repaint();
 	}
 	
 	void changeLocation(MouseEvent e) {

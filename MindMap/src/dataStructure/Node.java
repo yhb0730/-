@@ -22,6 +22,11 @@ public class Node {
 		this(-1, "dummy", -1);
 	}
 	
+	public Node(String string, int level) {
+		this.string = string;
+		this.level = level;
+	}
+	
 	public Node(int index, String string, int level){
 		this.index = index;
 		this.maxIndex = index;
